@@ -10,25 +10,32 @@
 
 ---
 
-**SecureX** is an automated, AI-driven digital forensics platform designed to analyze Android applications (APKs) for malicious behavior. By orchestrating static analysis, dynamic instrumentation, and threat intelligence, SecureX generates court-ready forensic reports and actionable threat narratives using advanced Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG).
+**SecureX** is an automated, AI-driven digital forensics platform designed to analyze Android applications (APKs) for malicious behavior. By orchestrating robust static analysis (powered by MobSF and Androguard), live dynamic instrumentation, and threat intelligence, SecureX generates court-ready forensic reports and actionable threat narratives using advanced Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG).
 
 ## 🧠 System Architecture & Workflow
 
 The platform coordinates a multi-stage analysis pipeline, seamlessly linking deterministic scoring with generative AI reasoning.
 
 ```mermaid
-graph TD
-    A[Ingest APK] --> B[Static Analysis: MobSF / Androguard / YARA]
-    B --> C[Threat Intel: VirusTotal / AbuseIPDB]
-    C --> D[Dynamic Analysis: Frida Instrumentation]
-    D --> E[Deterministic Scoring Engine]
-    E --> F[GenAI Explanation & RAG Search]
-    F --> G[Court-Ready Forensic PDF Generation]
+graph LR
+    A([Upload APK]) --> B[Static Analysis<br>MobSF / Androguard / YARA]
+    A --> C[Dynamic Analysis<br>Frida Instrumentation]
+    A --> D[Threat Intel<br>VirusTotal / AbuseIPDB]
+
+    B --> E{Deterministic<br>Scoring Engine}
+    C --> E
+    D --> E
+
+    E --> F[GenAI Reasoning<br>Groq / Gemini]
+    E --> G[RAG Search<br>ChromaDB]
+
+    F --> H([Court-Ready<br>Forensic PDF])
+    G --> H
 ```
 
 ## ✨ Key Features
 
-* **Automated Static Analysis**: Extracts permissions, activities, receivers, services, and hardcoded secrets using Androguard and custom YARA rules.
+* **Automated Static Analysis**: Deep-scans APKs utilizing the Mobile Security Framework (MobSF), Androguard, and custom YARA rules to extract permissions, activities, exposed receivers, services, and hardcoded secrets.
 * **Dynamic Instrumentation**: Hooks into live processes via Frida to monitor network traffic, SSL contexts, dynamically loaded code (`DexClassLoader`), and SMS/Location APIs.
 * **Threat Intelligence Integration**: Correlates file hashes and IP addresses with VirusTotal and AbuseIPDB.
 * **Multi-Agent GenAI Reasoning**: Utilizes Groq (Llama 3.3 70B) and Google Gemini (2.5 Flash) via a fault-tolerant backplane to generate massive, deeply technical forensic essays.
