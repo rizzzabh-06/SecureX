@@ -1,0 +1,141 @@
+api_calls:
+  c2_communication:
+    - "HttpURLConnection"
+    - "OkHttpClient"
+    - "HttpClient"
+    - "DefaultHttpClient"
+    - "java/net/Socket"
+    - "javax/net/ssl/SSLSocket"
+    - "DatagramSocket"
+
+  reflection_evasion:
+    - "java/lang/reflect/Method"
+    - "java/lang/ClassLoader"
+    - "dalvik/system/DexClassLoader"
+    - "dalvik/system/PathClassLoader"
+    - "dalvik/system/InMemoryDexClassLoader"
+    - "java/lang/Runtime"
+    - "exec"
+
+  crypto:
+    - "javax/crypto/Cipher"
+    - "javax/crypto/SecretKey"
+    - "java/security/MessageDigest"
+    - "javax/crypto/spec/SecretKeySpec"
+    - "android/util/Base64"
+
+  sms_ops:
+    - "android/telephony/SmsManager"
+    - "sendTextMessage"
+    - "sendMultipartTextMessage"
+    - "android/content/ContentResolver"
+
+  surveillance:
+    - "android/media/MediaRecorder"
+    - "android/hardware/Camera"
+    - "android/location/LocationManager"
+    - "android/location/LocationListener"
+    - "android/telephony/PhoneStateListener"
+    - "android/net/wifi/WifiManager"
+
+  accessibility:
+    - "android/accessibilityservice/AccessibilityService"
+    - "android/view/accessibility/AccessibilityEvent"
+    - "android/view/accessibility/AccessibilityNodeInfo"
+    - "performAction"
+    - "TYPE_VIEW_TEXT_CHANGED"
+    - "TYPE_WINDOW_STATE_CHANGED"
+
+  overlay:
+    - "SYSTEM_ALERT_WINDOW"
+    - "TYPE_APPLICATION_OVERLAY"
+    - "TYPE_PHONE"
+    - "TYPE_SYSTEM_ALERT"
+    - "WindowManager.LayoutParams"
+
+  device_admin:
+    - "android/app/admin/DevicePolicyManager"
+    - "android/app/admin/DeviceAdminReceiver"
+    - "wipeData"
+    - "lockNow"
+    - "resetPassword"
+    - "setPasswordQuality"
+
+  notification_access:
+    - "android/service/notification/NotificationListenerService"
+    - "getActiveNotifications"
+    - "StatusBarNotification"
+
+  account_manager:
+    - "android/accounts/AccountManager"
+    - "getAuthToken"
+    - "invalidateAuthToken"
+
+  root_detection_bypass:
+    - "su"
+    - "/system/bin/su"
+    - "/system/xbin/su"
+    - "RootBeer"
+    - "SafetyNet"
+    - "com/google/android/gms/safetynet"
+
+  anti_analysis:
+    - "isDebuggerConnected"
+    - "android/os/Debug"
+    - "getprop ro.build.tags"
+    - "test-keys"
+    - "Build.FINGERPRINT"
+    - "android/os/SystemProperties"
+    - "qemu"
+    - "goldfish"
+    - "genymotion"
+
+suspicious_strings:
+  c2_patterns:
+    - regex: "https?://\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}"
+      description: "Hardcoded IP-based C2"
+      score: 8
+    - regex: '(?i)(\.onion)'
+      description: "Tor hidden service C2"
+      score: 9
+    - regex: "(?i)(ngrok\\.io|pagekite\\.me|serveo\\.net)"
+      description: "Tunnel service C2"
+      score: 7
+    - regex: "(?i)(duckdns\\.org|no-ip\\.com|ddns\\.net)"
+      description: "Dynamic DNS C2"
+      score: 7
+
+  encoding:
+    - regex: "(?i)([A-Za-z0-9+/]{40,}={0,2})"
+      description: "Potential Base64 encoded payload"
+      score: 4
+    - regex: "\\\\x[0-9a-fA-F]{2}"
+      description: "Hex encoded strings"
+      score: 3
+
+  credentials:
+    - regex: "(?i)(password|passwd|pwd|secret|apikey|api_key|token|auth)"
+      description: "Hardcoded credentials"
+      score: 6
+    - regex: "(?i)(bearer\\s+[a-zA-Z0-9\\-_]+)"
+      description: "Hardcoded auth token"
+      score: 7
+
+  financial:
+    - regex: "(?i)(keylog|keystroke|overlay|inject|hook)"
+      description: "Keylogging/overlay terms"
+      score: 8
+    - regex: "(?i)(bitcoin|btc|monero|xmr|ethereum|wallet)"
+      description: "Cryptocurrency reference - potential ransomware"
+      score: 6
+
+  exfiltration:
+    - regex: "(?i)(telegram\\.org|t\\.me|api\\.telegram)"
+      description: "Telegram bot C2"
+      score: 7
+    - regex: "(?i)(pastebin\\.com|hastebin|ghostbin)"
+      description: "Paste service exfil"
+      score: 6
+    - regex: "(?i)(discord\\.com/api/webhooks)"
+      description: "Discord webhook C2"
+      score: 8

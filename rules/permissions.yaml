@@ -1,0 +1,153 @@
+dangerous_permissions:
+  critical:
+    - permission: "android.permission.READ_SMS"
+      score: 9
+      category: "Data Theft"
+      description: "Read SMS messages - used by banking trojans to steal OTPs"
+    - permission: "android.permission.RECEIVE_SMS"
+      score: 9
+      category: "Data Theft"
+      description: "Intercept incoming SMS - common in banking malware"
+    - permission: "android.permission.SEND_SMS"
+      score: 8
+      category: "Fraud"
+      description: "Send SMS - premium rate SMS fraud, spamming"
+    - permission: "android.permission.READ_CALL_LOG"
+      score: 8
+      category: "Surveillance"
+      description: "Read call history - spyware indicator"
+    - permission: "android.permission.PROCESS_OUTGOING_CALLS"
+      score: 8
+      category: "Surveillance"
+      description: "Intercept outgoing calls - spyware"
+    - permission: "android.permission.RECORD_AUDIO"
+      score: 9
+      category: "Surveillance"
+      description: "Record audio - surveillance/stalkerware"
+    - permission: "android.permission.CAMERA"
+      score: 7
+      category: "Surveillance"
+      description: "Access camera - can be used for covert surveillance"
+    - permission: "android.permission.READ_CONTACTS"
+      score: 7
+      category: "Data Theft"
+      description: "Read contacts - data harvesting"
+    - permission: "android.permission.ACCESS_FINE_LOCATION"
+      score: 8
+      category: "Surveillance"
+      description: "Precise GPS location - tracking/stalkerware"
+    - permission: "android.permission.READ_EXTERNAL_STORAGE"
+      score: 6
+      category: "Data Theft"
+      description: "Read storage - can access personal files"
+    - permission: "android.permission.WRITE_EXTERNAL_STORAGE"
+      score: 6
+      category: "Data Destruction"
+      description: "Write storage - ransomware indicator"
+    - permission: "android.permission.INSTALL_PACKAGES"
+      score: 10
+      category: "Dropper"
+      description: "Install other apps - dropper/downloader malware"
+    - permission: "android.permission.DELETE_PACKAGES"
+      score: 8
+      category: "Sabotage"
+      description: "Uninstall apps - can remove security tools"
+    - permission: "android.permission.BIND_DEVICE_ADMIN"
+      score: 10
+      category: "Persistence"
+      description: "Device admin - ransomware, extremely high risk"
+    - permission: "android.permission.BIND_ACCESSIBILITY_SERVICE"
+      score: 10
+      category: "Overlay/Keylog"
+      description: "Accessibility service - overlay attacks, keylogging"
+    - permission: "android.permission.SYSTEM_ALERT_WINDOW"
+      score: 9
+      category: "Overlay"
+      description: "Draw over other apps - phishing overlays"
+    - permission: "android.permission.GET_ACCOUNTS"
+      score: 8
+      category: "Credential Theft"
+      description: "List device accounts - credential harvesting"
+    - permission: "android.permission.USE_CREDENTIALS"
+      score: 9
+      category: "Credential Theft"
+      description: "Use account credentials - account hijacking"
+    - permission: "android.permission.AUTHENTICATE_ACCOUNTS"
+      score: 9
+      category: "Credential Theft"
+      description: "Authenticate accounts - man-in-the-middle"
+    - permission: "android.permission.DISABLE_KEYGUARD"
+      score: 8
+      category: "Persistence"
+      description: "Disable screen lock - bypass security"
+    - permission: "android.permission.WAKE_LOCK"
+      score: 5
+      category: "Persistence"
+      description: "Keep device awake - background operation"
+    - permission: "android.permission.RECEIVE_BOOT_COMPLETED"
+      score: 6
+      category: "Persistence"
+      description: "Auto-start on boot - persistence mechanism"
+    - permission: "android.permission.FOREGROUND_SERVICE"
+      score: 5
+      category: "Persistence"
+      description: "Run foreground service - persistence"
+    - permission: "android.permission.REQUEST_INSTALL_PACKAGES"
+      score: 9
+      category: "Dropper"
+      description: "Request install - sideloading dropper"
+    - permission: "android.permission.READ_PHONE_STATE"
+      score: 7
+      category: "Device Fingerprint"
+      description: "Read IMEI/phone numbers - device tracking"
+    - permission: "android.permission.CHANGE_NETWORK_STATE"
+      score: 5
+      category: "Network"
+      description: "Change network - C2 evasion"
+    - permission: "android.permission.CHANGE_WIFI_STATE"
+      score: 5
+      category: "Network"
+      description: "Change WiFi - network manipulation"
+    - permission: "android.permission.NFC"
+      score: 6
+      category: "Financial Fraud"
+      description: "NFC access - payment relay attacks"
+    - permission: "android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+      score: 9
+      category: "Data Theft"
+      description: "Read all notifications - OTP/2FA theft"
+    - permission: "android.permission.READ_PRECISE_PHONE_STATE"
+      score: 7
+      category: "Surveillance"
+      description: "Precise phone state monitoring"
+    - permission: "android.permission.MANAGE_EXTERNAL_STORAGE"
+      score: 7
+      category: "Data Theft"
+      description: "Full storage access - Android 11+ ransomware"
+
+  suspicious_combinations:
+    - permissions:
+        - "android.permission.BIND_ACCESSIBILITY_SERVICE"
+        - "android.permission.READ_SMS"
+      threat: "Banking Trojan"
+      severity: "CRITICAL"
+      description: "Accessibility + SMS = classic banking trojan pattern"
+    - permissions:
+        - "android.permission.RECORD_AUDIO"
+        - "android.permission.ACCESS_FINE_LOCATION"
+        - "android.permission.READ_CONTACTS"
+      threat: "Spyware/Stalkerware"
+      severity: "CRITICAL"
+      description: "Audio + Location + Contacts = comprehensive surveillance"
+    - permissions:
+        - "android.permission.INSTALL_PACKAGES"
+        - "android.permission.INTERNET"
+      threat: "Dropper"
+      severity: "HIGH"
+      description: "Network + Install = dropper downloading payloads"
+    - permissions:
+        - "android.permission.BIND_DEVICE_ADMIN"
+        - "android.permission.WRITE_EXTERNAL_STORAGE"
+      threat: "Ransomware"
+      severity: "CRITICAL"
+      description: "Device admin + storage write = ransomware"

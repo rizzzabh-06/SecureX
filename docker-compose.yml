@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  mobsf:
+    image: opensecurity/mobile-security-framework-mobsf:latest
+    ports:
+      - "8008:8000"
+    environment:
+      - MOBSF_API_KEY=f12166c8517b7c160c7e445503781ba958eee7eaac69b5df0f0aa5849f4bbce3
+    volumes:
+      - mobsf_data:/home/mobsf/.MobSF
+    user: root
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+volumes:
+  mobsf_data:

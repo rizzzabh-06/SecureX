@@ -1,0 +1,43 @@
+# Environment
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+
+# Data directories
+uploads/
+reports/
+chromadb_data/
+*.apk
+
+# Node
+node_modules/
+.next/
+out/
+
+# IDE
+.vscode/
+.idea/
+
+# Docker
+docker-compose.override.yml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Add these to your .gitignore file:
+.lima/
+android_sdk/
+android_data/
+.venv/
+.hf_cache/
+.frida-server/
+
