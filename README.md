@@ -10,7 +10,7 @@
 
 ---
 
-**SecureX** is an automated, AI-driven digital forensics platform designed to analyze Android applications (APKs) for malicious behavior. By orchestrating robust static analysis (powered by MobSF and Androguard), live dynamic instrumentation, and threat intelligence, SecureX generates court-ready forensic reports and actionable threat narratives using advanced Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG).
+**SecureX** is an automated, AI-driven digital forensics platform designed to analyze Android applications (APKs) for malicious behavior. By orchestrating robust static analysis (powered by MobSF and Androguard), live dynamic instrumentation, and threat intelligence, SecureX generates comprehensive technical reports with all findings and actionable threat narratives using advanced Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG).
 
 ## 🧠 System Architecture & Workflow
 
@@ -29,7 +29,7 @@ graph LR
     E --> F[GenAI Reasoning<br>Groq / Gemini]
     E --> G[RAG Search<br>ChromaDB]
 
-    F --> H([Court-Ready<br>Forensic PDF])
+    F --> H([Comprehensive<br>Technical PDF])
     G --> H
 ```
 
@@ -40,7 +40,7 @@ graph LR
 * **Threat Intelligence Integration**: Correlates file hashes and IP addresses with VirusTotal and AbuseIPDB.
 * **Multi-Agent GenAI Reasoning**: Utilizes Groq (Llama 3.3 70B) and Google Gemini (2.5 Flash) via a fault-tolerant backplane to generate massive, deeply technical forensic essays.
 * **RAG Search**: Indexes historical malware cases in ChromaDB to find the nearest matching malware families using behavioral patterns.
-* **Court-Ready PDF Reports**: Automatically formats findings into professional PDF documents with chain-of-custody cryptographic hashing.
+* **Comprehensive Technical Reports**: Automatically formats all findings into professional PDF documents with chain-of-custody cryptographic hashing.
 
 ---
 
@@ -53,7 +53,7 @@ graph LR
 | `app/analysis/` | **Static & Dynamic Scanners** | Contains local Androguard parsers, custom YARA scanner logic, and the Frida dynamic analysis controller. |
 | `frida_scripts/agent.js` | **Instrumentation Script** | Intercepts outbound TCP/HTTP traffic, SMS sends, Location accesses, and JNI `loadLibrary`. |
 | `app/ai/` | **LLM & RAG Engine** | Implements the Groq/Gemini API fallback chains, specialized AI Agent prompts, and ChromaDB vector indexing. |
-| `app/reporting/` | **Forensic Generator** | Generates court-ready PDF files and handles Chain of Custody logging. |
+| `app/reporting/` | **Forensic Generator** | Generates comprehensive technical PDF files and handles Chain of Custody logging. |
 
 ---
 
